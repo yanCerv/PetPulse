@@ -27,6 +27,7 @@
 		7C7FAFB63050B24200B33EBA /* PetPulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PetPulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C7FAFC33050B24300B33EBA /* PetPulseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PetPulseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C7FAFCD3050B24300B33EBA /* PetPulseUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PetPulseUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7CCDEFE33051F8BD0073F59A /* PetPulse.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = PetPulse.xctestplan; path = PetPulse/PetPulse.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +76,7 @@
 		7C7FAFAD3050B24200B33EBA = {
 			isa = PBXGroup;
 			children = (
+				7CCDEFE33051F8BD0073F59A /* PetPulse.xctestplan */,
 				7C7FAFB83050B24200B33EBA /* PetPulse */,
 				7C7FAFC63050B24300B33EBA /* PetPulseTests */,
 				7C7FAFD03050B24300B33EBA /* PetPulseUITests */,

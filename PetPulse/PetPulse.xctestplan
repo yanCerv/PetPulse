@@ -1,0 +1,37 @@
+{
+  "configurations" : [
+    {
+      "id" : "102AE971-A770-46A1-AC00-954C28B05570",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:PetPulse.xcodeproj",
+      "identifier" : "7C7FAFB53050B24200B33EBA",
+      "name" : "PetPulse"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : false,
+      "target" : {
+        "containerPath" : "container:PetPulse.xcodeproj",
+        "identifier" : "7C7FAFC23050B24300B33EBA",
+        "name" : "PetPulseTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:PetPulse.xcodeproj",
+        "identifier" : "7C7FAFCC3050B24300B33EBA",
+        "name" : "PetPulseUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
