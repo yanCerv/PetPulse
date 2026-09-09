@@ -9,5 +9,5 @@ enum CameraConnectionState: Equatable {
   case idle
   case connecting
   case streaming(cameraName: String)
-  case failed(message: String)
+  case failed(error: CameraConnectionError)
 }

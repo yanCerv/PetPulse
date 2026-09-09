@@ -48,11 +48,18 @@ struct CameraView: View {
     }
     .background(.black)
     .alert("", isPresented: $viewModel.showAlert) {
-      Button("Ok", role: .cancel) {
-        //No-Op
+      Button(connectionError.buttonTitle) {
+        Task {
+          await viewModel.didTapAlertButton()
+        }
       }
     } message: {
-      Text(viewModel.message)
+      Text(connectionError.message)
     }
+  }
+  
+  private var connectionError: CameraConnectionError {
+    guard case let .failed(error) = viewModel.connectionState else { return .localNetworkUnavailable }
+    return error
   }
 }

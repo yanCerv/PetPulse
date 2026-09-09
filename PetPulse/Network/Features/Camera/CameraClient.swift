@@ -14,13 +14,34 @@ protocol CameraProvider: Sendable {
 
 actor CameraClient: CameraProvider {
   
-  func connect() async throws -> CameraConnection {
-    try await Task.sleep(nanoseconds: 1000_000_000)
+  private var connectionCounter = 0
+  private var retry: Int = 1
+  
     
-    return CameraConnection(cameraName: "Tapo C210", streamURL: URL(string: "https://example.com/stream.m3u8")!)
+  func connect() async throws -> CameraConnection {
+    try await Task.sleep(nanoseconds: 2000_000_000)
+    
+    var cammeraConnection: CameraConnection?
+    for _ in 0...retry {
+      connectionCounter += 1
+      if connectionCounter == retry {
+        throw CameraConnectionError.unknownError
+      } else {
+        let url = URL(string: "https://example.com/stream.m3u8")!
+        cammeraConnection = CameraConnection(cameraName: "Topo C210", streamURL: url)
+      }
+    }
+    
+    return cammeraConnection!
   }
   
   func disconnect() async throws {
     try await Task.sleep(nanoseconds: 1000_000_000)
+  }
+  
+  //for test pruposes
+  enum ConnectionType {
+    case error
+    case succes
   }
 }

@@ -13,8 +13,7 @@ final class CameraViewModel {
   private weak var output: CameraOutput?
   private let client: any CameraProvider
   private(set) var connectionState: CameraConnectionState = .idle
-  private(set) var message: String = ""
-  
+    
   var showAlert: Bool = false
   
   //MARK: Init
@@ -26,6 +25,16 @@ final class CameraViewModel {
   
   //MARK: Methods
   
+  func didTapAlertButton() async {
+    guard case let .failed(error) = connectionState else { return }
+    
+    if error.shouldRetry {
+      await connectCamera()
+    } else {
+      dismissView()
+    }
+  }
+  
   func connectCamera() async {
     connectionState = .connecting
     
@@ -33,13 +42,20 @@ final class CameraViewModel {
       let cameraConnection = try await client.connect()
       connectionState = .streaming(cameraName: cameraConnection.cameraName)
     } catch {
+      let error = handleError(error: error)
       showAlert = true
-      message = error.localizedDescription
-      connectionState = .failed(message: error.localizedDescription)
+      connectionState = .failed(error: error)
     }
   }
   
   func dismissView() {
     output?.dismiss()
+  }
+  
+  func handleError(error: Error) -> CameraConnectionError {
+    if let error  = error as? CameraConnectionError {
+      return error
+    }
+    return .unknownError
   }
 }
