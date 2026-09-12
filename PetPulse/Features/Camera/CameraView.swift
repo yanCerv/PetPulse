@@ -5,11 +5,13 @@
 //  Created by Yan Cervantes  on 09/09/26.
 //
 
+import AVKit
 import SwiftUI
 
 struct CameraView: View {
   
   @State private var viewModel: CameraViewModel
+  @State private var player: AVPlayer?
   
   init(viewModel: CameraViewModel) {
     self.viewModel = viewModel
@@ -32,11 +34,17 @@ struct CameraView: View {
       case .idle, .connecting, .failed(_):
         EmptyView()
       case .streaming(let cameraName):
-        Text("Connected to: \(cameraName)")
+        VideoPlayer(player: player)
+        Text("Connected to: \(cameraName.cameraName)")
           .foregroundStyle(.white.opacity(0.8))
           .accessibilityLabel("Live camera stream placeholder")
       }
       Spacer()
+    }
+    .onChange(of: viewModel.connectionState) { _, connectionState in
+      guard case let .streaming(cameraConnection) = connectionState else { return }
+      player = AVPlayer(url: cameraConnection.streamURL)
+      player?.play()
     }
     .task {
       await viewModel.connectCamera()
@@ -55,6 +63,10 @@ struct CameraView: View {
       }
     } message: {
       Text(connectionError.message)
+    }
+    .onDisappear {
+      player?.pause()
+      player = nil
     }
   }
   

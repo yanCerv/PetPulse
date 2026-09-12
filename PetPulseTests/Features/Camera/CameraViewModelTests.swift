@@ -31,7 +31,7 @@ final class CameraViewModelTests: XCTestCase {
 
     // Then
     let connectCallCount = await client.connectCallCount
-    XCTAssertEqual(sut.connectionState, .streaming(cameraName: cameraConnection.cameraName))
+    XCTAssertEqual(sut.connectionState, .streaming(cameraConnection: cameraConnection))
     XCTAssertEqual(connectCallCount, 1)
   }
 
@@ -62,7 +62,7 @@ final class CameraViewModelTests: XCTestCase {
 
     // Then
     let secondConnectCallCount = await client.connectCallCount
-    XCTAssertEqual(sut.connectionState, .streaming(cameraName: cameraConnection.cameraName))
+    XCTAssertEqual(sut.connectionState, .streaming(cameraConnection: cameraConnection))
     XCTAssertEqual(secondConnectCallCount, 2)
   }
 

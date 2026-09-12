@@ -23,7 +23,7 @@ struct HomeView: View {
       }
       .padding(.all, 26)
     }
-    .fullScreenCover(isPresented: $viewModel.showCamera) {
+    .sheet(isPresented: $viewModel.showCamera) {
       CameraView(viewModel: CameraViewModel(output: viewModel))
         .interactiveDismissDisabled(true)
     }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CameraConnection: Sendable {
+struct CameraConnection: Equatable {
   let cameraName: String
   let streamURL: URL
 }

@@ -5,6 +5,7 @@
 //  Created by Yan Cervantes  on 09/09/26.
 //
 
+import AVKit
 import SwiftUI
 
 @Observable
@@ -40,7 +41,7 @@ final class CameraViewModel {
     
     do {
       let cameraConnection = try await client.connect()
-      connectionState = .streaming(cameraName: cameraConnection.cameraName)
+      connectionState = .streaming(cameraConnection: cameraConnection)
     } catch {
       let error = handleError(error: error)
       showAlert = true

@@ -14,29 +14,23 @@ protocol CameraProvider {
 
 actor CameraClient: CameraProvider {
   
-  private var connectionCounter = 0
-  private var retry: Int = 1
+  private let streamURL: URL?
   
+  init() {
+    let streamURL = ProcessInfo.processInfo.environment["PETPULSE_HLS_URL"]
+    self.streamURL = streamURL.flatMap(URL.init(string:))
+  }
     
   func connect() async throws -> CameraConnection {
-    try await Task.sleep(nanoseconds: 2000_000_000)
-    
-    var cammeraConnection: CameraConnection?
-    for _ in 0...retry {
-      connectionCounter += 1
-      if connectionCounter == retry {
-        throw CameraConnectionError.unknownError
-      } else {
-        let url = URL(string: "https://example.com/stream.m3u8")!
-        cammeraConnection = CameraConnection(cameraName: "Topo C210", streamURL: url)
-      }
+    guard let streamURL else {
+      throw CameraConnectionError.unknownError
     }
     
-    return cammeraConnection!
+    return CameraConnection(cameraName: "Tapo C200", streamURL: streamURL)
   }
   
   func disconnect() async throws {
-    try await Task.sleep(nanoseconds: 1000_000_000)
+    
   }
   
   //for test pruposes
