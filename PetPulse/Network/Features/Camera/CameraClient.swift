@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol CameraProvider: Sendable {
+protocol CameraProvider {
   func connect()  async throws -> CameraConnection
   func disconnect() async throws
 }
